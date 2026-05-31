@@ -6,11 +6,14 @@ function Login() {
   const [erro, setErro] = useState("");
 
   async function handleLogin() {
-    const res = await fetch("http://localhost:3000/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, senha }),
-    });
+    const res = await fetch(
+      "https://api-tarefas-production-025e.up.railway.app/auth/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      },
+    );
 
     if (res.ok) {
       const data = await res.json();

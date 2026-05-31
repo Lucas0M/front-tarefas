@@ -15,7 +15,7 @@ function Tarefas() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://localhost:3000/tarefas", {
+    fetch("https://api-tarefas-production-025e.up.railway.app/tarefas", {
       headers: {
         authorization: token!,
       },
@@ -30,14 +30,17 @@ function Tarefas() {
   async function criarTarefa() {
     if (!novoTitulo) return;
 
-    const res = await fetch("http://localhost:3000/tarefas", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token!,
+    const res = await fetch(
+      "https://api-tarefas-production-025e.up.railway.app/tarefas",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token!,
+        },
+        body: JSON.stringify({ titulo: novoTitulo }),
       },
-      body: JSON.stringify({ titulo: novoTitulo }),
-    });
+    );
 
     if (res.ok) {
       const newTarefa = await res.json();
@@ -47,14 +50,17 @@ function Tarefas() {
   }
 
   async function atualizarTarefa(id: number, feito: boolean) {
-    const res = await fetch(`http://localhost:3000/tarefas/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token!,
+    const res = await fetch(
+      `https://api-tarefas-production-025e.up.railway.app/tarefas/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token!,
+        },
+        body: JSON.stringify({ feito: !feito }),
       },
-      body: JSON.stringify({ feito: !feito }),
-    });
+    );
 
     if (res.ok) {
       const updated = await res.json();
@@ -63,10 +69,13 @@ function Tarefas() {
   }
 
   async function deletarTarefa(id: number) {
-    const res = await fetch(`http://localhost:3000/tarefas/${id}`, {
-      method: "DELETE",
-      headers: { authorization: token! },
-    });
+    const res = await fetch(
+      `https://api-tarefas-production-025e.up.railway.app/tarefas/${id}`,
+      {
+        method: "DELETE",
+        headers: { authorization: token! },
+      },
+    );
     if (res.ok) {
       setTarefas(tarefas.filter((t) => t.id !== id));
     }
